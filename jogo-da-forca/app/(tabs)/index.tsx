@@ -23,3 +23,34 @@ function pickWord() {
 const w = WORDS[Math.floor(Math.random() * WORDS.length)]
 return w
 }
+
+function startNewGame() {
+const w = pickWord()
+setWord(w)
+setRevealed(Array.from({ length: w.length }).map(() => false))
+setGuessed([])
+setWrongCount(0)
+setStatus('playing')
+}
+
+function onGuess(letter) {
+if (status !== 'playing') return
+if (guessed.includes(letter)) return
+const newGuessed = [...guessed, letter]
+setGuessed(newGuessed)
+
+if (word.includes(letter)) {
+const newRevealed = revealed.slice()
+for (let i = 0; i < word.length; i++) {
+if (word[i] === letter) newRevealed[i] = true
+}
+setRevealed(newRevealed)
+// Verifica se venceu
+if (newRevealed.every(Boolean)) setStatus('won')
+} else {
+// Caso contrário, incrementa erros
+const wc = wrongCount + 1
+setWrongCount(wc)
+if (wc >= maxWrong) setStatus('lost')
+}
+}
