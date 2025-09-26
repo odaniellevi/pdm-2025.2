@@ -16,3 +16,10 @@ const [guessed, setGuessed] = useState([])
 const [wrongCount, setWrongCount] = useState(0)
 const [maxWrong] = useState(6)
 const [status, setStatus] = useState('playing')
+
+useEffect(() => startNewGame(), [])
+
+function pickWord() {
+const w = WORDS[Math.floor(Math.random() * WORDS.length)]
+return w
+}
