@@ -85,3 +85,37 @@ export default function App() {
             </View>
         )
     }
+
+    function renderTriedLetters() {
+        return (
+            <View style={styles.triedRow}>
+                <Text style={styles.trimTitle}>Letras tentadas:</Text>
+                <View style={styles.triedList}>
+                    {guessed.length === 0 ? <Text style={styles.noneText}>Nenhuma ainda</Text> : guessed.map((l) => (
+                        <Text key={l} style={[styles.triedItem, word.includes(l) ? styles.triedCorrect : styles.triedWrong]}>{l}</Text>
+                    ))}
+                </View>
+            </View>
+        )
+    }
+
+    function renderHangman() {
+        return (
+            <Svg height="220" width="150" viewBox="0 0 150 220">
+                {/* Estrutura da forca */}
+                <Line x1="10" y1="200" x2="140" y2="200" stroke="#333" strokeWidth="4" />
+                <Line x1="40" y1="200" x2="40" y2="20" stroke="#333" strokeWidth="4" />
+                <Line x1="40" y1="20" x2="100" y2="20" stroke="#333" strokeWidth="4" />
+                <Line x1="100" y1="20" x2="100" y2="40" stroke="#333" strokeWidth="4" />
+
+
+                {/* Partes do boneco progressivamente */}
+                {wrongCount > 0 && <Circle cx="100" cy="60" r="15" stroke="#333" strokeWidth="3" fill="none" />}
+                {wrongCount > 1 && <Line x1="100" y1="75" x2="100" y2="120" stroke="#333" strokeWidth="3" />}
+                {wrongCount > 2 && <Line x1="100" y1="85" x2="80" y2="105" stroke="#333" strokeWidth="3" />}
+                {wrongCount > 3 && <Line x1="100" y1="85" x2="120" y2="105" stroke="#333" strokeWidth="3" />}
+                {wrongCount > 4 && <Line x1="100" y1="120" x2="80" y2="155" stroke="#333" strokeWidth="3" />}
+                {wrongCount > 5 && <Line x1="100" y1="120" x2="120" y2="155" stroke="#333" strokeWidth="3" />}
+            </Svg>
+        )
+    }
